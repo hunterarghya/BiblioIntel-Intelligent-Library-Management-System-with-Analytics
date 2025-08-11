@@ -24,42 +24,20 @@ def open_manage_books(root):
         entry.pack()
         entries[field.lower().replace(" ", "_")] = entry
 
+    
+
     def save_book():
-        # data = {key: entry.get() for key, entry in entries.items()}
-        # print("Saving book:", data)
-
-        # insert_book(data)  # Connect to DB
-
-        # import sqlite3
-        # conn = sqlite3.connect("library.db")
-        # cur = conn.cursor()
-
-        # data = {key: entry.get() for key, entry in entries.items()}
-        # print("Saving book:", data)
-
-        # cur.execute("""
-        #     INSERT INTO books (bookid, title, author, subject, dept, qnty, shelfno)
-        #     VALUES (?, ?, ?, ?, ?, ?, ?)
-        # """, (
-        #     data['book_id'],
-        #     data['title'],
-        #     data['author'],
-        #     data['subject'],
-        #     data['department'],
-        #     int(data['quantity']),
-        #     data['shelf_no']
-        # ))
-
-        # conn.commit()
-        # conn.close()
-        # print("Book inserted successfully.")
-        conn = get_connection()
+        
+        conn = sqlite3.connect("library.db")
         cur = conn.cursor()
 
-        data = {key: entry.get() for key, entry in entries.items()}
-        print("Saving book:", data)
-
         try:
+            data = {key: entry.get() for key, entry in entries.items()}
+
+            # Basic validation
+            if not all(data.values()):
+                raise ValueError("Please fill in all fields.")
+
             cur.execute("""
                 INSERT INTO books (bookid, title, author, subject, dept, qnty, shelfno)
                 VALUES (?, ?, ?, ?, ?, ?, ?)
@@ -72,11 +50,73 @@ def open_manage_books(root):
                 int(data['quantity']),
                 data['shelf_no']
             ))
+
             conn.commit()
-            print("Book inserted successfully.")
-        except sqlite3.IntegrityError:
-            messagebox.showerror("Error", "Book ID already exists.")
-        finally:
             conn.close()
+
+            messagebox.showinfo("Success", "Book successfully added!")
+            window.destroy()  
+
+        except ValueError as ve:
+            messagebox.showerror("Error", str(ve))
+        except Exception as e:
+            messagebox.showerror("Error", "Failed to add book.\n" + str(e))
+            conn.close()
+
+
+    # def save_book():
+    #     # data = {key: entry.get() for key, entry in entries.items()}
+    #     # print("Saving book:", data)
+
+    #     # insert_book(data)  # Connect to DB
+
+    #     # import sqlite3
+    #     # conn = sqlite3.connect("library.db")
+    #     # cur = conn.cursor()
+
+    #     # data = {key: entry.get() for key, entry in entries.items()}
+    #     # print("Saving book:", data)
+
+    #     # cur.execute("""
+    #     #     INSERT INTO books (bookid, title, author, subject, dept, qnty, shelfno)
+    #     #     VALUES (?, ?, ?, ?, ?, ?, ?)
+    #     # """, (
+    #     #     data['book_id'],
+    #     #     data['title'],
+    #     #     data['author'],
+    #     #     data['subject'],
+    #     #     data['department'],
+    #     #     int(data['quantity']),
+    #     #     data['shelf_no']
+    #     # ))
+
+    #     # conn.commit()
+    #     # conn.close()
+    #     # print("Book inserted successfully.")
+    #     conn = get_connection()
+    #     cur = conn.cursor()
+
+    #     data = {key: entry.get() for key, entry in entries.items()}
+    #     print("Saving book:", data)
+
+    #     try:
+    #         cur.execute("""
+    #             INSERT INTO books (bookid, title, author, subject, dept, qnty, shelfno)
+    #             VALUES (?, ?, ?, ?, ?, ?, ?)
+    #         """, (
+    #             data['book_id'],
+    #             data['title'],
+    #             data['author'],
+    #             data['subject'],
+    #             data['department'],
+    #             int(data['quantity']),
+    #             data['shelf_no']
+    #         ))
+    #         conn.commit()
+    #         print("Book inserted successfully.")
+    #     except sqlite3.IntegrityError:
+    #         messagebox.showerror("Error", "Book ID already exists.")
+    #     finally:
+    #         conn.close()
 
     Button(window, text="Save Book", command=save_book).pack(pady=10)
