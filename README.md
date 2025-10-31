@@ -122,3 +122,7 @@ All contributions will be reviewed before merging.
 ---
 
 ### Project Status: MVP Complete | Analytics & App in Progress
+
+## DevOps Setup
+
+This repository will include Docker, CI/CD, Terraform, and Kubernetes configs.
