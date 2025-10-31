@@ -1,1 +1,27 @@
-"venv/" 
+# "venv/" 
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+venv/
+env/
+
+# IDE settings
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs & local databases
+*.log
+*.sqlite3
+
+# Environment variables
+.env
