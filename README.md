@@ -1,6 +1,6 @@
-# BiblioIntel: Intelligent Library Management System with Analytics
+# Intelligent Library Management System with Analytics
 
-**BiblioIntel** is a smart and modular Library Management System built with **Python**, **Tkinter**, and **SQLite**, designed for schools, colleges, and personal collections. It simplifies book tracking, student records, and library operations — while laying the foundation for **data-driven decision-making**, **automation**, and **reader-friendly digital interaction**.
+A smart and modular Library Management System built with **Python**, **Tkinter**, and **SQLite**, designed for schools, colleges, and personal collections. It simplifies book tracking, student records, and library operations — while laying the foundation for **data-driven decision-making**, **automation**, and **reader-friendly digital interaction**.
 
 ---
 
@@ -123,6 +123,4 @@ All contributions will be reviewed before merging.
 
 ### Project Status: MVP Complete | Analytics & App in Progress
 
-## DevOps Setup
 
-This repository will include Docker, CI/CD, Terraform, and Kubernetes configs.
